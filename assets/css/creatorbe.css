@@ -1,0 +1,103 @@
+:root {
+    --syathiby-color-primary: #244030;
+    --syathiby-color-secondary: #528b6a;
+    --syathiby-color-green-light: #13fb03;
+    --syathiby-color-green-main: #1abc9c;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    color: #333;
+}
+
+form {
+    max-width: 300px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+/* input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+} */
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+.alert {
+    padding: 10px;
+    background-color: pink;
+    color: black;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+/*start login form */
+.login-form {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+.login-form h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    width: 91%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.login-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--syathiby-color-green-main);
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.login-form button:hover {
+    background-color: var(--syathiby-color-primary);
+}
+/* end of login form */
