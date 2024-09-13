@@ -1,3 +1,4 @@
 .env
 /cgi-bin/
 /configs/
+/.well-known/
