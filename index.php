@@ -523,7 +523,7 @@ include "inc/config.php";
                     <h3>Special Thanks</h3>
                     <p>To Allah, walhamdulillah, Who predestined every destiny is beautiful and thank you to all the
                         syathiby 2024 students who experienced this problem so that Allah made it easy to build this
-                        solver.</p>
+                        solver, it also <a href="https://github.com/syathiby/smail" target="_blank"><b>OPENSOURCE</b></a>.</p>
                     <img src="https://upload.wikimedia.org/wikipedia/commons/9/9c/DiMoT_Demo_Probability.svg" alt="">
                 </div>
             </div> <!-- end left side var -->
