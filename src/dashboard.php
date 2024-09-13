@@ -10,13 +10,13 @@ $start = ($page - 1) * $limit;
 
 $search = isset($_GET['search']) ? $_GET['search'] : '';
 
-$query = "SELECT * FROM users WHERE 1=1 ORDER BY id DESC";
+$query = "SELECT * FROM users WHERE 1=1";
 if ($admin_role == 'admin_ikhwan') {
     $query .= " AND role = 'santri_ikhwan'";
 } elseif ($admin_role == 'admin_akhwat') {
     $query .= " AND role = 'santri_akhwat'";
 } elseif ($admin_role == 'root') {
-    
+    // No additional condition for root
 } else {
     $_SESSION['message'] = "Sorry, you don't have permission to login.";
     header("location: signin");
@@ -27,9 +27,15 @@ if (!empty($search)) {
     $query .= " AND (name LIKE '%$search%' OR email LIKE '%$search%')";
 }
 
-$query .= " LIMIT $start, $limit";
+$query .= " ORDER BY id DESC LIMIT $start, $limit";
+
+// echo "Query: " . $query . "<br>"; // Debugging: Print the query
 
 $result = $koneksi->query($query);
+
+if (!$result) {
+    die("Query failed: " . $koneksi->error);
+}
 
 $total_query = "SELECT COUNT(*) AS total FROM users WHERE 1=1";
 if ($admin_role == 'admin_ikhwan') {
@@ -43,6 +49,11 @@ if (!empty($search)) {
 }
 
 $total_result = $koneksi->query($total_query);
+
+if (!$total_result) {
+    die("Total query failed: " . $koneksi->error);
+}
+
 $total_rows = $total_result->fetch_assoc()['total'];
 $total_pages = ceil($total_rows / $limit);
 ?>
@@ -204,29 +215,33 @@ $total_pages = ceil($total_rows / $limit);
             </thead>
             <tbody>
                 <?php
-                while ($row = $result->fetch_assoc()) {
-                    echo "<tr>";
-                    echo "<td>" . $row['id'] . "</td>";
-                    echo "<td>" . $row['name'] . "</td>";
-                    echo "<td>" . $row['email'] . "</td>";
-                    echo "<td>" . $row['role'] . "</td>";
-                    echo "<td>" . ($row['is_confirmed'] ? 'Yes' : 'No') . "</td>";
-                    echo "<td style='display: flex; gap: 10px;'>";
-                    if (!$row['is_confirmed']) {
-                        echo "<button class='confirm' onclick='confirmUser(" . $row['id'] . ")' style='background: none; border: none; cursor: pointer;'>";
-                        echo "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='green' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' style='width: 20px; height: 20px;'>";
-                        echo "<polyline points='20 6 9 17 4 12'></polyline>";
+                if ($result && $result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . $row['id'] . "</td>";
+                        echo "<td>" . $row['name'] . "</td>";
+                        echo "<td>" . $row['email'] . "</td>";
+                        echo "<td>" . $row['role'] . "</td>";
+                        echo "<td>" . ($row['is_confirmed'] ? 'Yes' : 'No') . "</td>";
+                        echo "<td style='display: flex; gap: 10px;'>";
+                        if (!$row['is_confirmed']) {
+                            echo "<button class='confirm' onclick='confirmUser(" . $row['id'] . ")' style='background: none; border: none; cursor: pointer;'>";
+                            echo "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='green' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' style='width: 20px; height: 20px;'>";
+                            echo "<polyline points='20 6 9 17 4 12'></polyline>";
+                            echo "</svg>";
+                            echo "</button>";
+                        }
+                        echo "<button class='delete' onclick='deleteUser(" . $row['id'] . ")' style='background: none; border: none; cursor: pointer;'>";
+                        echo "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='red' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' style='width: 20px; height: 20px;'>";
+                        echo "<polyline points='3 6 5 6 21 6'></polyline>";
+                        echo "<path d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'></path>";
                         echo "</svg>";
                         echo "</button>";
+                        echo "</td>";
+                        echo "</tr>";
                     }
-                    echo "<button class='delete' onclick='deleteUser(" . $row['id'] . ")' style='background: none; border: none; cursor: pointer;'>";
-                    echo "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='red' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' style='width: 20px; height: 20px;'>";
-                    echo "<polyline points='3 6 5 6 21 6'></polyline>";
-                    echo "<path d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'></path>";
-                    echo "</svg>";
-                    echo "</button>";
-                    echo "</td>";
-                    echo "</tr>";
+                } else {
+                    echo "<tr><td colspan='6'>No users found.</td></tr>";
                 }
                 ?>
             </tbody>

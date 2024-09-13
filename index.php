@@ -582,7 +582,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var passwordStrength = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
         if (!password.match(passwordStrength)) {
-            passwordError.textContent = "Password must be at least 12 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.";
+            passwordError.textContent = "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.";
             return false;
         }
 
