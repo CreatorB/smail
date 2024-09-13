@@ -7,8 +7,17 @@ include "inc/config.php";
 <head>
     <meta charset="UTF-8">
     <title>Syathiby Mail</title>
+    <meta name="description" content="Create your mail without phone verification drama.">
+    <meta name="keywords"
+        content="Syathiby Mail, email registration, no phone verification, create email, Syathiby, webmail">
+    <meta property="og:title" content="Syathiby Mail - Create your mail without phone verification drama">
+    <meta property="og:description"
+        content="Create your mail without phone verification drama.">
+    <meta property="og:image" content="https://smail.syathiby.id/assets/imgs/webs/holo-mail.png">
+    <meta property="og:url" content="https://smail.syathiby.id">
+    <meta property="og:type" content="website">
     <link href="<?php echo PATH_ROOT_CSS_CREATORBE; ?>" rel="stylesheet" type="text/css" />
-    <link rel="shortcut icon" type="image/x-icon" href="img/google_faceicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/webs/holo-mail.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body,
@@ -156,7 +165,7 @@ include "inc/config.php";
 
         .top_div img,
         .buttom_div img {
-            width: 70%;
+            width: 50%;
         }
 
         .buttom_div {
@@ -474,6 +483,20 @@ include "inc/config.php";
             }
         }
     </style>
+    <script type="application/ld+json"> {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Syathiby Mail",
+            "url": "https://smail.syathiby.id",
+            "description": "Create your Syathiby Mail without phone verification drama.",
+            "image": "https://smail.syathiby.id/path/to/your/image.jpg",
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://smail.syathiby.id/search?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -492,7 +515,8 @@ include "inc/config.php";
             <div class="left_content">
                 <div class="top_div">
                     <h3>Our Mission</h3>
-                    <p>Simplify email registration without the hassle of phone verification.</p>
+                    <p>Simplify email registration without the hassle of phone verification. Unfortunately, this email
+                        service is currently only available for the Mahad Syathiby community.</p>
                     <img src="https://upload.wikimedia.org/wikipedia/commons/3/39/World_map_clip_art.svg" alt="">
                 </div>
                 <div class="buttom_div">
@@ -514,8 +538,10 @@ include "inc/config.php";
                     <form id="signupForm" action="src/signup_process.php" class="google_fornsss" method="post">
                         <div class="name">
                             <label for="first_name">Name</label>
-                            <input type="text" name="first_name" id="first_name" class="hafname1" placeholder="First" required>
-                            <input type="text" name="last_name" id="last_name" class="hafname2" placeholder="Last" required>
+                            <input type="text" name="first_name" id="first_name" class="hafname1" placeholder="First"
+                                required>
+                            <input type="text" name="last_name" id="last_name" class="hafname2" placeholder="Last"
+                                required>
                         </div>
                         <div class="full_width_area">
                             <label for="email"> Choose your mail </label>
@@ -554,52 +580,52 @@ include "inc/config.php";
             </div> <!-- end right sidbar-->
         </div> <!-- end center div-->
     </div> <!-- end content area-->
-    <?php include "src/footer.php"?>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
+    <?php include "src/footer.php" ?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
 
-    const form = document.getElementById('signupForm');
+            const form = document.getElementById('signupForm');
 
-    function validateEmail() {
-        const email = document.getElementById("email").value;
-        const emailError = document.getElementById("email_error");
-        emailError.textContent = "";
+            function validateEmail() {
+                const email = document.getElementById("email").value;
+                const emailError = document.getElementById("email_error");
+                emailError.textContent = "";
 
-        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-        if (!email.match(emailPattern)) {
-            emailError.textContent = "Please enter a valid email address.";
-            return false;
-        }
-        return true;
-    }
+                const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+                if (!email.match(emailPattern)) {
+                    emailError.textContent = "Please enter a valid email address.";
+                    return false;
+                }
+                return true;
+            }
 
-    function validatePassword() {
-        const password = document.getElementById("password").value;
-        const passwordConfirm = document.getElementById("password_confirm").value;
-        const passwordError = document.getElementById("password_error");
+            function validatePassword() {
+                const password = document.getElementById("password").value;
+                const passwordConfirm = document.getElementById("password_confirm").value;
+                const passwordError = document.getElementById("password_error");
 
-        passwordError.textContent = "";
+                passwordError.textContent = "";
 
-    var passwordStrength = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
-        if (!password.match(passwordStrength)) {
-            passwordError.textContent = "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.";
-            return false;
-        }
+                var passwordStrength = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
+                if (!password.match(passwordStrength)) {
+                    passwordError.textContent = "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.";
+                    return false;
+                }
 
-        if (password !== passwordConfirm) {
-            passwordError.textContent = "Passwords do not match.";
-            return false;
-        }
+                if (password !== passwordConfirm) {
+                    passwordError.textContent = "Passwords do not match.";
+                    return false;
+                }
 
-        return true;
-    }
+                return true;
+            }
 
-    form.addEventListener('submit', function (event) {
-        if (!validateEmail() || !validatePassword()) {
-            event.preventDefault();
-        }
-    });
-});
+            form.addEventListener('submit', function (event) {
+                if (!validateEmail() || !validatePassword()) {
+                    event.preventDefault();
+                }
+            });
+        });
     </script>
 </body>
 
