@@ -545,14 +545,17 @@ include "inc/config.php";
                         </div>
                         <div class="full_width_area">
                             <label for="email"> Choose your mail </label>
-                            <input type="text" name="email" id="email" class="full" placeholder="example@syathiby.id"
-                                value="@syathiby.id" required>
+                            <input type="text" name="email" id="email" class="full" placeholder="example@smail.syathiby.id"
+                                value="@smail.syathiby.id" required>
                             <div id="email_error" style="color: red;"></div>
                             <label for="password"> Create a password </label>
                             <input type="password" name="password" id="password" class="full" required>
                             <label for="password_confirm"> Confirm your password </label>
-                            <input type="password" name="password_confirm" id="password_confirm" class="full" required>
-                            <div id="password_error" style="color: red;"></div>
+                            <input style="margin-bottom: 3px" type="password" name="password_confirm" id="password_confirm" class="full" required>
+                            <div>
+                                <input type="checkbox" id="showPassword">show password
+                            </div>
+                            <div id="password_error" style="color: red; margin-bottom: 10px;"></div>
                         </div>
                         <div class="gender_and_other">
                             <label for="role">Account type</label>
@@ -585,6 +588,19 @@ include "inc/config.php";
         document.addEventListener('DOMContentLoaded', function () {
 
             const form = document.getElementById('signupForm');
+            const showPasswordCheckbox = document.getElementById('showPassword');
+            const passwordInput = document.getElementById('password');
+            const passwordConfirmInput = document.getElementById('password_confirm');
+
+            showPasswordCheckbox.addEventListener('change', function () {
+                if (this.checked) {
+                    passwordInput.type = 'text';
+                    passwordConfirmInput.type = 'text';
+                } else {
+                    passwordInput.type = 'password';
+                    passwordConfirmInput.type = 'password';
+                }
+            });
 
             function validateEmail() {
                 const email = document.getElementById("email").value;
@@ -606,9 +622,9 @@ include "inc/config.php";
 
                 passwordError.textContent = "";
 
-                var passwordStrength = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
+                var passwordStrength = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
                 if (!password.match(passwordStrength)) {
-                    passwordError.textContent = "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.";
+                    passwordError.textContent = "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number.";
                     return false;
                 }
 

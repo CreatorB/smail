@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
     if (!validateEmailDomain($email)) {
-        $_SESSION['message'] = "Email domain must be yourname@syathiby.id";
+        $_SESSION['message'] = "Email domain must be yourname@smail.syathiby.id";
         header("Location: $url_signup");
         exit();
     }

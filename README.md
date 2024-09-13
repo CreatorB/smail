@@ -66,6 +66,7 @@ Edit the `.env` file located in the `inc` folder with the following configuratio
 ```env
 ENVIRONMENT=development/production
 BASE_DOMAIN=
+BASE_EMAIL=
 HOSTNAME_SERVER=https://subdomain.${BASE_DOMAIN}
 HOSTNAME_LOCAL=http://192.168.50.100/dev/smail
 CPANEL_HOST=cpanel.${BASE_DOMAIN}

@@ -14,6 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'])) {
         $email = $user['email'];
         $password = $user['password'];
 
+        $mailQuota = 1; // Set default quota to 1 MB
+        if ($user['role'] == 'staff') {
+           $mailQuota = 100; 
+        }
+
         // if (password_verify($password, $hashed_password)) {
         if ($password == $user['password']) {
             $stmt = $koneksi->prepare("UPDATE users SET is_confirmed = 1 WHERE id = ?");
@@ -28,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'])) {
                     'domain' => $domain,
                     'email' => $username,
                     'password' => $password,
-                    'quota' => 1 // Kuota email dalam MB
+                    'quota' => $mailQuota
                 );
 
                 $ch = curl_init();

@@ -91,5 +91,5 @@ function clean_input($data) {
 
 function validateEmailDomain($email) {
     $domain = substr(strrchr($email, "@"), 1);
-    return ($domain === getenv('BASE_DOMAIN'));
+    return ($domain === getenv('BASE_EMAIL'));
 }

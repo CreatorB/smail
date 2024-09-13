@@ -4,7 +4,7 @@ include "../inc/auth_session.php";
 
 $admin_role = $_SESSION['account_role'];
 
-$limit = 10;
+$limit = 30;
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 $start = ($page - 1) * $limit;
 
