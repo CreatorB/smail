@@ -78,7 +78,7 @@ if ($hostname != $hostname_local) {
 }
 $koneksi = mysqli_connect($nameserver, $username, $password, $namadb);
 if (!$koneksi) {
-    die("Maintenance : Couldn't connect to " . mysqli_connect_error());
+    die("Maintenance : Couldn't connect to $nameserver :" . mysqli_connect_error());
 }
 
 function clean_input($data) {
