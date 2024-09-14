@@ -59,6 +59,20 @@ CREATE TABLE users (
 );
 ```
 
+To implement a toggle for maintenance mode in your application, you can create a separate `settings` table to store application-wide settings, including the maintenance mode status. This approach is more modular and scalable.
+
+```sql
+CREATE TABLE settings (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    setting_name VARCHAR(255) NOT NULL UNIQUE,
+    setting_value VARCHAR(255) NOT NULL
+);
+```
+
+```sql
+INSERT INTO settings (setting_name, setting_value) VALUES ('mode_maintenance', '0');
+```
+
 #### Environment Configuration:
 
 Edit the `.env` file located in the `inc` folder with the following configurations:

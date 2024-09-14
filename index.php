@@ -1,5 +1,18 @@
 <?php
 include "inc/config.php";
+$query = "SELECT setting_value FROM settings WHERE setting_name = 'mode_maintenance'";
+$result = $koneksi->query($query);
+
+if ($result && $result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $maintenance_mode = $row['setting_value'];
+
+    if ($maintenance_mode == 1) {
+        include "src/maintenance.php";
+        exit();
+    }
+}
+?>
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -622,9 +635,9 @@ include "inc/config.php";
 
                 passwordError.textContent = "";
 
-                var passwordStrength = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+                var passwordStrength = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{10,}$/;
                 if (!password.match(passwordStrength)) {
-                    passwordError.textContent = "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number.";
+                    passwordError.textContent = "Password must be at least 10 characters long and contain at least one uppercase letter, one lowercase letter, and one number.";
                     return false;
                 }
 
