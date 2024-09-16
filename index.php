@@ -189,18 +189,20 @@ if ($result && $result->num_rows > 0) {
             width: 50%;
         }
 
-        .google_sing_up_form {
+        .google_sign_up_form {
             float: right;
             overflow: hidden;
             width: 360px;
+            margin: auto;
         }
 
-        .google_fornsss {
+        .google_form {
             background: #f1f1f1 none repeat scroll 0 0;
             padding: 25px;
+            margin-bottom: 20px;
         }
 
-        .google_fornsss label {
+        .google_form label {
             color: #222222;
             display: block;
             font-weight: 600;
@@ -209,17 +211,17 @@ if ($result && $result->num_rows > 0) {
             font-size: 16px;
         }
 
-        .google_fornsss input[type="text"],
-        .google_fornsss input[type="number"],
-        .google_fornsss input[type="password"] {
+        .google_form input[type="text"],
+        .google_form input[type="number"],
+        .google_form input[type="password"] {
             border: 1px solid #d9d9d9;
             margin-bottom: 20px;
             padding: 7px 5px;
         }
 
-        .google_fornsss input[type="text"]:hover,
-        .google_fornsss input[type="number"]:hover,
-        .google_fornsss input[type="password"]:hover {
+        .google_form input[type="text"]:hover,
+        .google_form input[type="number"]:hover,
+        .google_form input[type="password"]:hover {
             border: 1px solid #B9B9B9;
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
         }
@@ -313,7 +315,7 @@ if ($result && $result->num_rows > 0) {
             overflow: hidden;
         }
 
-        .google_fornsss .checkbox .checkclass {
+        .google_form .checkbox .checkclass {
             color: #222222;
             font-size: 14px;
             font-weight: normal;
@@ -451,7 +453,7 @@ if ($result && $result->num_rows > 0) {
                 width: 100%;
             }
 
-            .google_sing_up_form {
+            .google_sign_up_form {
                 width: 80%;
                 margin: auto
             }
@@ -471,7 +473,7 @@ if ($result && $result->num_rows > 0) {
                 font-size: 30px;
             }
 
-            .google_sing_up_form {
+            .google_sign_up_form {
                 width: 95%;
                 margin: auto
             }
@@ -486,8 +488,9 @@ if ($result && $result->num_rows > 0) {
                 width: 100%;
             }
 
-            .google_sing_up_form {
+            .google_sign_up_form {
                 width: 100%;
+                margin: auto;
             }
 
             .hafname1 {
@@ -502,7 +505,7 @@ if ($result && $result->num_rows > 0) {
         }
 
         @media all and (max-width: 370px) {
-            .google_sing_up_form {
+            .google_sign_up_form {
                 width: 80%;
                 margin: auto
             }
@@ -512,10 +515,6 @@ if ($result && $result->num_rows > 0) {
             }
 
             .right_content {
-                width: 100%;
-            }
-
-            .google_sing_up_form {
                 width: 100%;
             }
 
@@ -597,14 +596,14 @@ if ($result && $result->num_rows > 0) {
                 </div>
             </div> <!-- end left side var -->
             <div class="right_content"> <!-- begin right sidebar -->
-                <div class="google_sing_up_form">
+                <div class="google_sign_up_form">
                     <?php
                     if (isset($_SESSION['message'])) {
                         echo '<div class="alert">' . $_SESSION['message'] . '</div>';
                         unset($_SESSION['message']);
                     }
                     ?>
-                    <form id="signupForm" action="src/signup_process.php" class="google_fornsss" method="post">
+                    <form id="signupForm" action="src/signup_process.php" class="google_form" method="post">
                         <div class="name">
                             <label for="first_name">Name</label>
                             <input type="text" name="first_name" id="first_name" class="hafname1" placeholder="First"

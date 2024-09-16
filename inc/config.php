@@ -114,7 +114,8 @@ function validatePasswordWithCpanel($pass)
     if ($result === false) {
         error_log('cURL error: ' . curl_error($ch));
         curl_close($ch);
-        return false;
+        echo json_encode(['valid' => false, 'message' => 'cURL error: ' . curl_error($ch)]);
+        return;
     }
     curl_close($ch);
 
@@ -122,12 +123,15 @@ function validatePasswordWithCpanel($pass)
 
     if (isset($response['cpanelresult']['data'][0]['strength'])) {
         $strength = $response['cpanelresult']['data'][0]['strength'];
-        error_log("Password strength: $strength");
-        return $strength >= 50;
+        $isValid = $strength >= 50;
+        $message = "Password strength: $strength";
+        echo json_encode(['valid' => $isValid, 'message' => $message]);
+        return;
     }
 
     error_log('Invalid response from cPanel API: ' . print_r($response, true));
-    return false;
+    echo json_encode(['valid' => false, 'message' => 'Invalid response from cPanel API : ' . print_r($response, true)]);
+    return;
 }
 
 function getSettingValue($setting_name) {
