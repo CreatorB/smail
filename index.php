@@ -572,7 +572,7 @@ if ($result && $result->num_rows > 0) {
             <img src="assets/imgs/webs/syathiby-mail-logo.webp" alt="">
         </div>
         <div class="singup">
-            <button class="signinbutton" onclick="window.location.href='signin.php'">Sign In</button>
+            <button class="signinbutton" onclick="window.location.href='signin'">Sign In</button>
         </div>
     </div>
     <div id="content_area">
