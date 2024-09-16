@@ -190,7 +190,6 @@ if ($result && $result->num_rows > 0) {
         }
 
         .google_sign_up_form {
-            float: right;
             overflow: hidden;
             width: 360px;
             margin: auto;
