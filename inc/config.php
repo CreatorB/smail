@@ -27,6 +27,7 @@ loadEnv(__DIR__ . '/.env');
 
 $environment = getenv('ENVIRONMENT');
 $base_domain = getenv('BASE_DOMAIN');
+$base_email = getenv('BASE_EMAIL');
 $hostname_server = str_replace('${BASE_DOMAIN}', $base_domain, getenv('HOSTNAME_SERVER'));
 $hostname_local = getenv('HOSTNAME_LOCAL');
 
@@ -42,7 +43,7 @@ if ($environment === 'production') {
     $hostname = $hostname_local;
 }
 
-$cpanel_host = str_replace('${BASE_DOMAIN}', $base_domain, getenv('CPANEL_HOST'));
+$cpanel_host = str_replace('${BASE_EMAIL}', $base_email, getenv('CPANEL_HOST'));
 $cpanel_username = getenv('CPANEL_USERNAME');
 $cpanel_password = getenv('CPANEL_PASSWORD');
 $cpanel_port = getenv('CPANEL_PORT');
@@ -92,4 +93,56 @@ function clean_input($data) {
 function validateEmailDomain($email) {
     $domain = substr(strrchr($email, "@"), 1);
     return ($domain === getenv('BASE_EMAIL'));
+}
+
+
+function validatePasswordWithCpanel($pass)
+{
+    global $cpanel_host, $cpanel_port, $cpanel_username, $cpanel_password;
+
+    $url = "https://$cpanel_host:$cpanel_port/json-api/cpanel?cpanel_jsonapi_user=$cpanel_username&cpanel_jsonapi_apiversion=2&cpanel_jsonapi_module=PasswdStrength&cpanel_jsonapi_func=get_password_strength&password=$pass";
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($ch, CURLOPT_USERPWD, "$cpanel_username:$cpanel_password");
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+
+    $result = curl_exec($ch);
+    if ($result === false) {
+        error_log('cURL error: ' . curl_error($ch));
+        curl_close($ch);
+        return false;
+    }
+    curl_close($ch);
+
+    $response = json_decode($result, true);
+
+    if (isset($response['cpanelresult']['data'][0]['strength'])) {
+        $strength = $response['cpanelresult']['data'][0]['strength'];
+        error_log("Password strength: $strength");
+        return $strength >= 50;
+    }
+
+    error_log('Invalid response from cPanel API: ' . print_r($response, true));
+    return false;
+}
+
+function getSettingValue($setting_name) {
+    global $koneksi;
+    $query = "SELECT setting_value FROM settings WHERE setting_name = ?";
+    $stmt = $koneksi->prepare($query);
+
+    if ($stmt) {
+        $stmt->bind_param('s', $setting_name);
+        $stmt->execute();
+        $stmt->bind_result($setting_value);
+        $stmt->fetch();
+        $stmt->close();
+        return $setting_value;
+    } else {
+        return null;
+    }
 }

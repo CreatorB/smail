@@ -182,6 +182,12 @@ $total_pages = ceil($total_rows / $limit);
         }
         ?>
         <div style="text-align: right; margin-bottom: 20px;">
+            <label for="autoconfirm-mode" style="display: inline-block; vertical-align: middle; margin-left: 20px;">
+                Auto Confirm Register :
+                <input type="checkbox" id="autoconfirm-mode" style="vertical-align: middle;" <?php echo (getSettingValue('mode_autoconfirm') == '1') ? 'checked' : ''; ?>>
+            </label>
+        </div>
+        <div style="text-align: right; margin-bottom: 20px;">
             <a href="../logout.php">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -268,6 +274,23 @@ $total_pages = ceil($total_rows / $limit);
                 window.location.href = "user_delete.php?id=" + userId;
             }
         }
+
+        document.getElementById('autoconfirm-mode').addEventListener('change', function () {
+            const isChecked = this.checked;
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "mode_autoconfirm.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    if (xhr.responseText === 'success') {
+                        alert('Auto Confirm mode updated successfully.');
+                    } else {
+                        alert('Failed to update Auto Confirm mode.');
+                    }
+                }
+            };
+            xhr.send("mode_autoconfirm=" + (isChecked ? '1' : '0'));
+        });
     </script>
 </body>
 

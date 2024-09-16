@@ -3,6 +3,7 @@ include "../inc/config.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'])) {
     $userId = $_GET['id'];
+    $redirect = $_GET['redirect'] ?? 'dashboard.php';
 
     $stmt = $koneksi->prepare("SELECT email, password FROM users WHERE id = ?");
     $stmt->bind_param("i", $userId);
@@ -70,9 +71,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'])) {
         $_SESSION['message'] = "User not found.";
     }
 
-    header('Location: dashboard.php');
+    header('Location: ' . $redirect);
     exit();
 } else {
-    header('Location: dashboard.php');
+    header('Location: ' . $redirect);
     exit();
 }

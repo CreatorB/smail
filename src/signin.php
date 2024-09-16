@@ -13,7 +13,7 @@ if (isset($_SESSION['account_role']) && ($_SESSION['account_role'] == 'admin_ikh
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login</span></title>
+    <title>Admin Login</title>
     <link rel="stylesheet" href="../assets/css/creatorbe.css">
     <style>
         body {
@@ -38,7 +38,7 @@ if (isset($_SESSION['account_role']) && ($_SESSION['account_role'] == 'admin_ikh
             unset($_SESSION['message']);
         }
         ?>
-        <form style="margin-top: 10px;" action="signin_process.php" method="post">
+        <form id="loginForm" style="margin-top: 10px;" action="signin_process.php" method="post">
             <input type="text" name="email" placeholder="Email" required>
             <input type="password" name="password" placeholder="Password" required>
             <button style="margin-top: 20px" type="submit">Sign In</button>
@@ -47,6 +47,17 @@ if (isset($_SESSION['account_role']) && ($_SESSION['account_role'] == 'admin_ikh
                     style="text-decoration: none; color: var(--syathiby-color-green-main)"><b>Sign Up</b></a></span>
         </p>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('loginForm');
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission
+                // You can add additional validation here if needed
+                form.submit(); // Manually submit the form
+            });
+        });
+    </script>
 </body>
 
 </html>

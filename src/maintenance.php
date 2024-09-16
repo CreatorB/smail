@@ -5,7 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maintenance Mode</title>
-    <link rel="stylesheet" href="assets/css/creatorbe.css">
+    <meta name="description" content="Create your mail without phone verification drama.">
+    <meta name="keywords"
+        content="Syathiby Mail, email registration, no phone verification, create email, Syathiby, webmail">
+    <meta property="og:title" content="Syathiby Mail - Create your mail without phone verification drama">
+    <meta property="og:description"
+        content="Create your mail without phone verification drama.">
+    <meta property="og:image" content="assets/imgs/webs/holo-mail.png">
+    <meta property="og:type" content="website">
+    <link href="<?php echo PATH_ROOT_CSS_CREATORBE; ?>" rel="stylesheet" type="text/css" />
+    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/webs/holo-mail.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body {
             font-family: Arial, sans-serif;

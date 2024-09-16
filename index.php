@@ -13,7 +13,6 @@ if ($result && $result->num_rows > 0) {
     }
 }
 ?>
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,10 +23,9 @@ if ($result && $result->num_rows > 0) {
     <meta name="keywords"
         content="Syathiby Mail, email registration, no phone verification, create email, Syathiby, webmail">
     <meta property="og:title" content="Syathiby Mail - Create your mail without phone verification drama">
-    <meta property="og:description"
-        content="Create your mail without phone verification drama.">
-    <meta property="og:image" content="https://smail.syathiby.id/assets/imgs/webs/holo-mail.png">
-    <meta property="og:url" content="https://smail.syathiby.id">
+    <meta property="og:description" content="Create your mail without phone verification drama.">
+    <meta property="og:image" content="assets/imgs/webs/holo-mail.png">
+    <meta property="og:url" content='<?php echo BASE_URL ?>'>
     <meta property="og:type" content="website">
     <link href="<?php echo PATH_ROOT_CSS_CREATORBE; ?>" rel="stylesheet" type="text/css" />
     <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/webs/holo-mail.png">
@@ -495,6 +493,27 @@ if ($result && $result->num_rows > 0) {
                 float: left;
             }
         }
+
+        /* Loading spinner styles */
+        .loading {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            z-index: 1000;
+        }
+
+        .loading img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+        }
     </style>
     <script type="application/ld+json"> {
             "@context": "https://schema.org",
@@ -510,6 +529,7 @@ if ($result && $result->num_rows > 0) {
             }
         }
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -536,7 +556,8 @@ if ($result && $result->num_rows > 0) {
                     <h3>Special Thanks</h3>
                     <p>To Allah, walhamdulillah, Who predestined every destiny is beautiful and thank you to all the
                         syathiby 2024 students who experienced this problem so that Allah made it easy to build this
-                        solver, it also <a href="https://github.com/syathiby/smail" target="_blank"><b>OPENSOURCE</b></a>.</p>
+                        solver, it also <a href="https://github.com/syathiby/smail"
+                            target="_blank"><b>OPENSOURCE</b></a>.</p>
                     <img src="https://upload.wikimedia.org/wikipedia/commons/9/9c/DiMoT_Demo_Probability.svg" alt="">
                 </div>
             </div> <!-- end left side var -->
@@ -558,13 +579,14 @@ if ($result && $result->num_rows > 0) {
                         </div>
                         <div class="full_width_area">
                             <label for="email"> Choose your mail </label>
-                            <input type="text" name="email" id="email" class="full" placeholder="example@smail.syathiby.id"
-                                value="@smail.syathiby.id" required>
+                            <input type="text" name="email" id="email" class="full"
+                                placeholder="example@smail.syathiby.id" value="@smail.syathiby.id" required>
                             <div id="email_error" style="color: red;"></div>
                             <label for="password"> Create a password </label>
                             <input type="password" name="password" id="password" class="full" required>
                             <label for="password_confirm"> Confirm your password </label>
-                            <input style="margin-bottom: 3px" type="password" name="password_confirm" id="password_confirm" class="full" required>
+                            <input style="margin-bottom: 3px" type="password" name="password_confirm"
+                                id="password_confirm" class="full" required>
                             <div>
                                 <input type="checkbox" id="showPassword">show password
                             </div>
@@ -576,6 +598,23 @@ if ($result && $result->num_rows > 0) {
                                 <option value="santri_ikhwan" selected>Santri Ikhwan</option>
                                 <option value="santri_akhwat">Santri Akhwat</option>
                                 <option value="staff">Staff</option>
+                            </select>
+                        </div>
+                        <div class="gender_and_other">
+                            <label for="class">Class</label>
+                            <select name="class" id="class" class="gender_select">
+                                <?php
+                                $startNumber = 7;
+                                $endNumber = 12;
+                                $repetitions = 2;
+
+                                for ($number = $startNumber; $number <= $endNumber; $number++) {
+                                    for ($i = 0; $i < $repetitions; $i++) {
+                                        $optionValue = $number . chr(65 + $i);
+                                        echo "<option value=\"$optionValue\">$optionValue</option>\n";
+                                    }
+                                }
+                                ?>
                             </select>
                         </div>
                         <div class="mobile">
@@ -597,6 +636,10 @@ if ($result && $result->num_rows > 0) {
         </div> <!-- end center div-->
     </div> <!-- end content area-->
     <?php include "src/footer.php" ?>
+    <!-- Loading spinner -->
+    <div class="loading">
+        <img src="assets/imgs/webs/syathiby-loading-dualball.gif" alt="Loading...">
+    </div>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
 
@@ -650,9 +693,48 @@ if ($result && $result->num_rows > 0) {
             }
 
             form.addEventListener('submit', function (event) {
-                if (!validateEmail() || !validatePassword()) {
+                // if (!validateEmail() || !validatePassword()) {
+                if (!validateEmail()) {
                     event.preventDefault();
                 }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#signupForm').on('submit', function (event) {
+                event.preventDefault();
+
+                var password = $('#password').val();
+                var passwordConfirm = $('#password_confirm').val();
+
+                if (password !== passwordConfirm) {
+                    $('#password_error').text("Passwords do not match.");
+                    return;
+                } else {
+                    $('#password_error').text("");
+                }
+                $('.loading').show();
+                $.ajax({
+                    url: 'src/validate_password.php',
+                    type: 'POST',
+                    data: { password: password },
+                    success: function (response) {
+                        var result = JSON.parse(response);
+                        if (result.valid) {
+                            $('#password_error').text("");
+                            $('#signupForm')[0].submit();
+                        } else {
+                            $('#password_error').text("Password must contain at least one uppercase letter, one lowercase letter, one number and one special character.");
+                        }
+                    },
+                    error: function () {
+                        $('#password_error').text("An error occurred while validating the password.");
+                    },
+                    complete: function () {
+                        $('.loading').hide();
+                    }
+                });
             });
         });
     </script>

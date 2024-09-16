@@ -53,6 +53,7 @@ CREATE TABLE users (
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     wa VARCHAR(20) DEFAULT NULL,
+    class VARCHAR(5) DEFAULT NULL,
     role ENUM('santri_ikhwan', 'santri_akhwat', 'staff', 'admin_ikhwan', 'admin_akhwat', 'root') NOT NULL DEFAULT 'santri_ikhwan',
     is_confirmed INT(1) NOT NULL DEFAULT 0,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -70,7 +71,7 @@ CREATE TABLE settings (
 ```
 
 ```sql
-INSERT INTO settings (setting_name, setting_value) VALUES ('mode_maintenance', '0');
+INSERT INTO settings (setting_name, setting_value) VALUES ('mode_maintenance', '0'), ('mode_autoconfirm', '0');
 ```
 
 #### Environment Configuration:
