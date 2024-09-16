@@ -78,14 +78,28 @@ $total_pages = ceil($total_rows / $limit);
             height: 100vh;
         }
 
+        .root {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 1000px;
+        }
+
         .dashboard {
             background: white;
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             text-align: center;
-            width: 80%;
-            max-width: 800px;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            display: block;
+            max-height: 400px;
+            overflow-y: auto;
+            overflow-x: auto;
         }
 
         .dashboard h2 {
@@ -102,6 +116,7 @@ $total_pages = ceil($total_rows / $limit);
         .dashboard td {
             border: 1px solid #ccc;
             padding: 10px;
+            white-space: nowrap;
         }
 
         .dashboard th {
@@ -173,7 +188,7 @@ $total_pages = ceil($total_rows / $limit);
 </head>
 
 <body>
-    <div class="dashboard">
+    <div class="root">
         <h2>Admin Dashboard</h2>
         <?php
         if (isset($_SESSION['message'])) {
@@ -208,6 +223,7 @@ $total_pages = ceil($total_rows / $limit);
                 </svg>
             </button>
         </form>
+        <div class="dashboard">
         <table>
             <thead>
                 <tr>
@@ -254,6 +270,7 @@ $total_pages = ceil($total_rows / $limit);
                 ?>
             </tbody>
         </table>
+        </div>
         <div class="pagination">
             <?php
             for ($i = 1; $i <= $total_pages; $i++) {
