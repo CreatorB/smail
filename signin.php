@@ -1,3 +1,6 @@
+<?php
+include "inc/config.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,6 +8,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Smail</title>
+    <meta name="description" content="Create your mail without phone verification drama.">
+    <meta name="keywords"
+        content="Syathiby Mail, email registration, no phone verification, create email, Syathiby, webmail">
+    <meta property="og:title" content="Syathiby Mail - Create your mail without phone verification drama">
+    <meta property="og:description" content="Create your mail without phone verification drama.">
+    <meta property="og:image" content="assets/imgs/webs/holo-mail.png">
+    <meta property="og:url" content='<?php echo BASE_URL ?>'>
+    <meta property="og:type" content="website">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/webs/holo-mail.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body {
             margin: 0;
@@ -148,7 +161,7 @@
                         <label class="form-control-placeholder" for="name">Email</label>
                     </div>
                     <div class="form-link">
-                        <label><a href="">Forgot Email?</a></label>
+                        <label><a href="https://wa.me/6285156081434">Forgot Email?</a></label>
                     </div>
                     <br />
                     <br />
@@ -159,7 +172,7 @@
                     <br />
                     <br />
                     <div class="form-link">
-                        <label><a href="">Create Account</a></label>
+                        <label><a href="/">Create Account</a></label>
                         <button type="button" class="btn" onclick="showPasswordBox()">Next</button>
                     </div>
                 </div>
