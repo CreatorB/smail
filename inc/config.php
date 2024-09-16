@@ -114,7 +114,7 @@ function validatePasswordWithCpanel($pass)
     if ($result === false) {
         error_log('cURL error: ' . curl_error($ch));
         curl_close($ch);
-        echo json_encode(['valid' => false, 'message' => 'cURL error: ' . curl_error($ch)]);
+        echo json_encode(['valid' => false, 'message' => 'cURL error: ' . curl_error($ch) . ' : ' . print_r($result, true)]);
         return;
     }
     curl_close($ch);
