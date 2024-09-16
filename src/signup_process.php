@@ -28,7 +28,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 
-    if (!validatePasswordWithCpanel($password)) {
+    ob_start();
+    validatePasswordWithCpanel($password);
+    $output = ob_get_clean();
+    $response = json_decode($output, true);
+    if (isset($response['valid']) && !$response['valid']) {
         $_SESSION['message'] = "Password is not strong enough.";
         header("Location: $url_signup");
         exit();
@@ -37,16 +41,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // $hashed_password = password_hash($password, PASSWORD_DEFAULT);
     $hashed_password = $password;
 
-    if (empty($role)) {
-        $_SESSION['message'] = "Role is required.";
-        header("Location: $url_signup");
-        exit();
-    }
-
     if (empty($class)) {
         $_SESSION['message'] = "Class is required.";
         header("Location: $url_signup");
         exit();
+    }
+
+    if (empty($role)) {
+        $_SESSION['message'] = "Role is required.";
+        header("Location: $url_signup");
+        exit();
+    } else {
+        if ($role === 'staff') {
+           $class = ''; 
+        }
     }
 
     $query = "INSERT INTO users (name, email, password, wa, class, role) VALUES (?, ?, ?, ?, ?, ?)";

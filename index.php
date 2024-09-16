@@ -738,7 +738,6 @@ if ($result && $result->num_rows > 0) {
             function toggleClassSelect() {
                 if (roleSelect.value === 'staff') {
                     classSelect.style.display = 'none';
-                    classInput.value = '';
                 } else {
                     classSelect.style.display = 'block';
                 }
