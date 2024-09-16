@@ -29,8 +29,6 @@ if (!empty($search)) {
 
 $query .= " ORDER BY id DESC LIMIT $start, $limit";
 
-// echo "Query: " . $query . "<br>"; // Debugging: Print the query
-
 $result = $koneksi->query($query);
 
 if (!$result) {
