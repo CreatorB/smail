@@ -436,13 +436,15 @@ if ($result && $result->num_rows > 0) {
 
         @media all and (max-width: 1032px) {
             .left_content {
-                display: none;
+                display: block;
+                width: 50%;
+                margin-bottom: 20px;
             }
 
             .right_content {
                 float: none;
                 margin: auto;
-                width: 370px;
+                width: 50%;
             }
 
             .center_content {
@@ -450,7 +452,17 @@ if ($result && $result->num_rows > 0) {
             }
 
             .google_sing_up_form {
-                float: none;
+                width: 80%;
+                margin: auto
+            }
+
+            .hafname1 {
+                width: 70%;
+            }
+
+            .hafname2 {
+                width: 70%;
+                float: left;
             }
         }
 
@@ -462,6 +474,29 @@ if ($result && $result->num_rows > 0) {
             .google_sing_up_form {
                 width: 95%;
                 margin: auto
+            }
+
+            .left_content {
+                display: block;
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .right_content {
+                width: 100%;
+            }
+
+            .google_sing_up_form {
+                width: 100%;
+            }
+
+            .hafname1 {
+                width: 95%;
+            }
+
+            .hafname2 {
+                width: 95%;
+                float: left;
             }
 
         }
@@ -647,6 +682,8 @@ if ($result && $result->num_rows > 0) {
             const showPasswordCheckbox = document.getElementById('showPassword');
             const passwordInput = document.getElementById('password');
             const passwordConfirmInput = document.getElementById('password_confirm');
+            const roleSelect = document.getElementById('role');
+            const classSelect = document.getElementById('class').parentElement;
 
             showPasswordCheckbox.addEventListener('change', function () {
                 if (this.checked) {
@@ -698,6 +735,17 @@ if ($result && $result->num_rows > 0) {
                     event.preventDefault();
                 }
             });
+
+            function toggleClassSelect() {
+                if (roleSelect.value === 'staff') {
+                    classSelect.style.display = 'none';
+                    classInput.value = '';
+                } else {
+                    classSelect.style.display = 'block';
+                }
+            }
+            toggleClassSelect();
+            roleSelect.addEventListener('change', toggleClassSelect);
         });
     </script>
     <script>

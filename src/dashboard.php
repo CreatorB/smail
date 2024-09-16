@@ -215,6 +215,7 @@ $total_pages = ceil($total_rows / $limit);
                     <th>Name</th>
                     <th>Email</th>
                     <th>Role</th>
+                    <th>Class</th>
                     <th>Confirmed</th>
                     <th>Action</th>
                 </tr>
@@ -228,6 +229,7 @@ $total_pages = ceil($total_rows / $limit);
                         echo "<td>" . $row['name'] . "</td>";
                         echo "<td>" . $row['email'] . "</td>";
                         echo "<td>" . $row['role'] . "</td>";
+                        echo "<td>" . $row['class'] . "</td>";
                         echo "<td>" . ($row['is_confirmed'] ? 'Yes' : 'No') . "</td>";
                         echo "<td style='display: flex; gap: 10px;'>";
                         if (!$row['is_confirmed']) {
