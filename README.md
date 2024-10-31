@@ -113,7 +113,7 @@ We welcome contributions from the community to help improve Syathiby Mail. To co
 
 2. **Clone Your Fork**:
    ```bash
-   git clone https://github.com/yourusername/smail.git
+   git clone https://github.com/CreatorB/smail.git
    cd smail
    ```
 
